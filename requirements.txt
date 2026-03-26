@@ -1,5 +1,5 @@
-# Microsoft Agent Framework (pre-release — update as stable releases land)
-agent-framework>=1.0.0rc5
+# Semantic Kernel — GA v1.x (includes PyYAML, httpx, openai as transitive deps)
+semantic-kernel>=1.0.0
 
 # Streamlit chat UI
 streamlit>=1.35.0
