@@ -1,0 +1,5 @@
+# Microsoft Agent Framework (pre-release — pinned to RC; update as stable releases land)
+agent-framework>=1.0.0rc5
+
+# Optional: load .env files automatically
+python-dotenv>=1.0.0
