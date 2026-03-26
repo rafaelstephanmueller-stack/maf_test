@@ -1,8 +1,0 @@
-# Semantic Kernel — GA v1.x (includes PyYAML, httpx, openai as transitive deps)
-semantic-kernel>=1.0.0
-
-# Streamlit chat UI
-streamlit>=1.35.0
-
-# Load .env files automatically
-python-dotenv>=1.0.0

@@ -1,0 +1,12 @@
+{
+  "name": "codex-harness",
+  "version": "1.0.0",
+  "description": "Agent harness using OpenAI Codex CLI out of the box",
+  "scripts": {
+    "start": "codex",
+    "agent": "codex"
+  },
+  "dependencies": {
+    "@openai/codex": "latest"
+  }
+}
