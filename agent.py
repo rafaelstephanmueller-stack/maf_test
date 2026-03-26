@@ -9,9 +9,8 @@ Requirements:
     pip install agent-framework --pre
 
 Environment variables (copy .env.example to .env and fill in):
-    AZURE_OPENAI_ENDPOINT    — your Azure OpenAI endpoint URL
-    AZURE_OPENAI_DEPLOYMENT  — the model deployment name (e.g. gpt-4o)
-    AZURE_OPENAI_API_KEY     — API key (optional if using DefaultAzureCredential)
+    OPENAI_API_KEY   — your OpenAI API key
+    OPENAI_MODEL     — model to use (default: gpt-5)
 
 Usage:
     python agent.py                  # interactive chat loop
@@ -36,8 +35,7 @@ except ImportError:
 # ---------------------------------------------------------------------------
 # MAF imports
 # ---------------------------------------------------------------------------
-from agent_framework import Skill, SkillResource, SkillsProvider
-from agent_framework.azure import AzureOpenAIChatClient
+from agent_framework import OpenAIChatClient, Skill, SkillResource, SkillsProvider
 
 # ---------------------------------------------------------------------------
 # Build a supplementary code-defined skill alongside the file-based ones.
@@ -127,21 +125,19 @@ def build_skills_provider() -> SkillsProvider:
 
 
 def build_agent(skills_provider: SkillsProvider):
-    """Instantiate the agent using Azure OpenAI chat completions."""
-    endpoint = os.environ.get("AZURE_OPENAI_ENDPOINT")
-    deployment = os.environ.get("AZURE_OPENAI_DEPLOYMENT", "gpt-4o")
-    api_key = os.environ.get("AZURE_OPENAI_API_KEY")
+    """Instantiate the agent using OpenAI chat completions."""
+    api_key = os.environ.get("OPENAI_API_KEY")
+    model = os.environ.get("OPENAI_MODEL", "gpt-5")
 
-    if not endpoint:
+    if not api_key:
         raise EnvironmentError(
-            "AZURE_OPENAI_ENDPOINT is not set. "
-            "Copy .env.example to .env and fill in your Azure OpenAI details."
+            "OPENAI_API_KEY is not set. "
+            "Copy .env.example to .env and add your OpenAI API key."
         )
 
-    client = AzureOpenAIChatClient(
-        endpoint=endpoint,
-        deployment=deployment,
-        api_key=api_key,  # None → falls back to DefaultAzureCredential
+    client = OpenAIChatClient(
+        api_key=api_key,
+        model=model,
     )
 
     return client.as_agent(
